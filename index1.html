@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <title>wlee</title>
+  <style>
+    body {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="position-absolute top-50 start-50 translate-middle">
+    <button id="button" class="btn btn-primary btn-lg" onclick="mulai()">ahaha, klik disini coba</button>
+    <div id="iloveyou" style="display: none">
+      <h2 class="text-center">LOVE YOUUU<br />&#10084;&#65039;</h2>
+    </div>
+  </div>
+  <span id="hati" class="fixed-bottom text-center my-3" onclick="hati()"></span>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script type="text/javascript">
+    const author = "rama";
+    document.getElementById("hati").innerHTML = ` &#10084;&#65039; by someone`;
+    const swals = Swal.mixin({
+      cancelButtonColor: "#d33",
+      confirmButtonColor: "#3085d6",
+    });
+
+    function moveButton(button) {
+      const x = Math.floor(Math.random() * (window.innerWidth - button.clientWidth));
+      const y = Math.floor(Math.random() * (window.innerHeight - button.clientHeight));
+      button.style.position = 'absolute';
+      button.style.left = `${x}px`;
+      button.style.top = `${y}px`;
+    }
+
+    async function mulai() {
+      await swals.fire("ahaha, makasiii ya udah sayang banget sama aku", "lanjut yaa");
+      await swals.fire("aku mau bilang sesuatu sama kamu");
+      await swals.fire("aku juga sayang sama kamu ");
+      await swals.fire("sayang bangettt");
+      await swals.fire("ahaha");
+      await swals.fire("LOVE YOU MOREEE");
+      await swals.fire("wleeee ");
+      await swals.fire("lanjut yaa sayang", " ga boleh ga lanjut ", "error");
+      var { value: nama } = await swals.fire({
+        title: "coba ketik nama kamu",
+        input: "text",
+        showCancelButton: true,
+      });
+      if (nama) {
+        var { isConfirmed: sayang } = await swals.fire({
+          title: `${nama} harus semangat yaaa`,
+          confirmButtonText: "iyaaa sayang",
+          cancelButtonText: "ga mau",
+          showCancelButton: true,
+          preConfirm: () => {
+            const button = document.querySelector('.swal2-cancel');
+            button.addEventListener('mouseenter', () => moveButton(button));
+          },
+        });
+        if (sayang) {
+          await swals.fire("aku aja semangat pake banget");
+          
+          let persen;
+          while (true) {
+            var { value: inputPersen } = await swals.fire({
+              title: "seberapa semangat kamu",
+              icon: "question",
+              input: "range",
+              inputLabel: "antara 1-100",
+              inputAttributes: {
+                min: 1,
+                max: 100,
+              },
+              inputValue: 50,
+            });
+
+            if (inputPersen === '100') {
+              persen = inputPersen;
+              break;
+            } else {
+              await swals.fire("harus 100 pokoknya", "coba lagi deh", "error");
+            }
+          }
+          
+          await swals.fire(` makasiii yaaa udah mau semangat ${persen}%`);
+          var { isConfirmed: kangen } = await swals.fire({
+            title: "kl sekarang kangen ga sama aku?",
+            confirmButtonText: "kangen banget",
+            cancelButtonText: "engga",
+            showCancelButton: true,
+            preConfirm: () => {
+              const button = document.querySelector('.swal2-cancel');
+              button.addEventListener('mouseenter', () => moveButton(button));
+            },
+          });
+          if (kangen) {
+            await swals.fire(" aku juga kangen sama kamu", "tapi aku mau ke gunung, doain aku yaaa, nanti kl udah pulang aku ceritain ke kamu");
+            await swals.fire("terakhir sayang");
+            await swals.fire("coba klik love di bawah");
+          } else {
+            const button = document.querySelector('.swal2-cancel');
+            button.addEventListener('click', () => moveButton(button));
+          }
+        }
+      }
+    }
+
+    function hati() {
+      document.getElementById("button").style = "display: none";
+      document.getElementById("iloveyou").style = "";
+      startConfetti();
+    }
+  </script>
+  <script type="text/javascript" src="https://www.cssscript.com/demo/confetti-falling-animation/confetti.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+</body>
+</html>
